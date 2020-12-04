@@ -1,4 +1,5 @@
-﻿using OnlineShop.Models;
+﻿using Microsoft.AspNet.Identity;
+using OnlineShop.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,16 +19,20 @@ namespace OnlineShop.Controllers
             ViewBag.Products = products;
             return View();
         }
+        [Authorize(Roles = "Editor,Admin")]
         public ActionResult New()
         {
             Product prod = new Product();
             prod.Categ = GetAllCategories();
+            prod.UserId = User.Identity.GetUserId();
             return View(prod);
         }
         [HttpPost]
+        [Authorize(Roles = "Editor,Admin")]
         public ActionResult New(Product prod)
         {
             prod.Categ = GetAllCategories();
+            prod.UserId = User.Identity.GetUserId();
             
             try
             {
@@ -48,19 +53,33 @@ namespace OnlineShop.Controllers
                 return View(prod);
             }
         }
+
         public ActionResult Show(int id)
         {
             Product product = db.Products.Find(id);
             return View(product);
         }
+        [Authorize(Roles = "Editor,Admin")]
         public ActionResult Edit(int id)
         {
             Product prod = db.Products.Find(id);
             prod.Categ = GetAllCategories();
-            return View(prod);
-        }
 
+            if (prod.UserId == User.Identity.GetUserId() || User.IsInRole("Admin"))
+            {
+                
+                return View(prod);
+            }
+            else
+            {
+                TempData["message"] = "Nu aveti dreptul sa faceti modificari asupra unui produs care nu va apartine!";
+                return RedirectToAction("Index");
+            }
+
+        }
+        
         [HttpPut]
+        [Authorize(Roles = "Editor,Admin")]
         public ActionResult Edit(int id, Product requestProduct)
         {
             requestProduct.Categ = GetAllCategories();
@@ -70,18 +89,26 @@ namespace OnlineShop.Controllers
                 if (ModelState.IsValid)
                 {
                     Product product = db.Products.Find(id);
-
-                    if (TryUpdateModel(product))
+                    if (product.UserId == User.Identity.GetUserId() || User.IsInRole("Admin"))
                     {
-                        product.Title = requestProduct.Title;
-                        product.Description = requestProduct.Description;
-                        product.Price = requestProduct.Price;
-                        product.Rating = requestProduct.Rating;
-                        product.CategoryId = requestProduct.CategoryId;
-                        db.SaveChanges();
-                        TempData["message"] = "Produsul a fost modificat";
+                        if (TryUpdateModel(product))
+                        {
+                            product.Title = requestProduct.Title;
+                            product.Description = requestProduct.Description;
+                            product.Price = requestProduct.Price;
+                            product.Rating = requestProduct.Rating;
+                            product.CategoryId = requestProduct.CategoryId;
+
+                            db.SaveChanges();
+                            TempData["message"] = "Produsul a fost modificat";
+                        }
+                        return RedirectToAction("Index");
                     }
-                    return RedirectToAction("Index");
+                    else
+                    {
+                        TempData["message"] = "Nu aveti dreptul sa faceti modificari asupra unui produs care nu va apartine!";
+                        return RedirectToAction("Index");
+                    }
                 }
                 else
                 {
@@ -113,14 +140,24 @@ namespace OnlineShop.Controllers
            
             return selectList;
         }
+        
         [HttpDelete]
+        [Authorize(Roles = "Editor,Admin")]
         public ActionResult Delete(int id)
         {
             Product prod = db.Products.Find(id);
-            db.Products.Remove(prod);
-            db.SaveChanges();
-            TempData["message"] = "Produsul a fost sters";
-            return RedirectToAction("Index");
+            if (prod.UserId == User.Identity.GetUserId() || User.IsInRole("Admin"))
+            {
+                db.Products.Remove(prod);
+                db.SaveChanges();
+                TempData["message"] = "Produsul a fost sters";
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                TempData["message"] = "Nu aveti dreptul sa stergeti un produs care nu va apartine!";
+                return RedirectToAction("Index");
+            }
         }
     }
 }

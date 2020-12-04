@@ -17,6 +17,7 @@ namespace OnlineShop.Controllers
             return View();
         }
         [HttpPost]
+        [Authorize(Roles = "User,Editor,Admin")]
         public ActionResult New(Review rev)
         {
             try
@@ -32,6 +33,7 @@ namespace OnlineShop.Controllers
             }
 
         }
+        [Authorize(Roles = "User,Editor,Admin")]
         public ActionResult Edit(int id)
         {
             Review rev = db.Reviews.Find(id);
@@ -39,6 +41,7 @@ namespace OnlineShop.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "User,Editor,Admin")]
         public ActionResult Edit(int id, Review requestRev)
         {
             try
@@ -59,6 +62,7 @@ namespace OnlineShop.Controllers
 
         }
         [HttpDelete]
+        [Authorize(Roles = "User,Editor,Admin")]
         public ActionResult Delete(int id)
         {
             Review rev = db.Reviews.Find(id);
