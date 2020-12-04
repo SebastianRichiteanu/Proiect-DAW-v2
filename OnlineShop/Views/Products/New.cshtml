@@ -1,0 +1,30 @@
+﻿@model OnlineShop.Models.Product
+@{
+    ViewBag.Title = "New";
+}
+
+<h1>Adaugare Produs</h1>
+
+@using (Html.BeginForm(actionName: "New", controllerName: "Products"))
+{
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+    @Html.Label("Title", "Nume Produs")
+    <br />
+    @Html.TextBox("Title", null, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.Title, null, new { @class = "text-danger" })
+    <br /><br />
+    @Html.Label("Description", "Descriere Produs")
+    <br />
+    @Html.TextArea("Description", null, new { @class = "form-control" })
+    @Html.ValidationMessage("Description", null, new { @class = "text-danger" })
+    @Html.Label("Price", "Pret Produs")
+    @Html.TextArea("Price", null, new { @class = "form-control" })
+    <br />
+    <label>Selectati categoria</label>
+    @Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.Categ, "Value", "Text"),
+    "Selectati categoria", new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.CategoryId, "", new { @class = "text-danger" })
+    <br />
+    <br />
+    <button class="btn btn-sm btn-success" type="submit">Adauga articol</button>
+}

@@ -1,0 +1,38 @@
+﻿@model OnlineShop.Models.Product
+
+@using (Html.BeginForm(actionName: "Edit", controllerName: "Products"))
+{
+    @Html.HttpMethodOverride(HttpVerbs.Put)
+
+    @Html.HiddenFor(m => m.Id)
+    <br />
+    @Html.Label("Title", "Nume produs")
+    <br />
+    @Html.Editor("Title")
+    @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
+    <br /><br />
+    @Html.Label("Description", "Descriere Produs")
+    <br />
+    @Html.EditorFor(m => m.Description)
+    @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+
+    <br />
+    @Html.Label("Price", "Pret")
+    <br />
+    @Html.EditorFor(m => m.Price)
+    @Html.ValidationMessageFor(m => m.Price, "", new { @class = "text-danger" })
+    <br />
+    @Html.Label("Rating", "Rating")
+    <br />
+    @Html.EditorFor(m => m.Rating)
+    @Html.ValidationMessageFor(m => m.Rating, "", new { @class = "text-danger" })
+    <br /><br />
+    <label>Selectati categoria</label>
+    @Html.DropDownListFor(m => m.CategoryId,
+        new SelectList(Model.Categ, "Value", "Text"),
+        "Selectati categoria", new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.CategoryId, "", new { @class = "text-danger" })
+    <br />
+
+    <button class="btn btn-sm btn-success" type="submit">Modifica produs</button>
+}

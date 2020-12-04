@@ -1,0 +1,18 @@
+﻿@model OnlineShop.Models.Category
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h1>Afisare Categorii</h1>
+
+@foreach (OnlineShop.Models.Category category in ViewBag.Categories)
+{
+    @Html.Partial("CategoryInfo", category);
+}
+<br /> <br />
+<a href="/Categories/New">Adauga Categorie</a>
+<br /> <br />
+<a href="/Products/Index">Afisare lista produse</a>
+<br /> <br />
+<a href="/Reviews/Index">Afisare lista review-uri</a>

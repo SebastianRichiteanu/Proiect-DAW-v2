@@ -1,0 +1,19 @@
+﻿@model OnlineShop.Models.Review
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Editare comentariu</h2>
+<form method="post" action="/Reviews/Edit/@Model.ReviewId">
+    @Html.HttpMethodOverride(HttpVerbs.Put)
+    @Html.Label("ReviewComment", "Comentariu")
+    <br />
+    @Html.Editor("ReviewComment")
+    <br />
+    @Html.Label("ReviewRating", "Rating")
+    <br />
+    @Html.Editor("ReviewRating")
+    <button class="btn btn-success" type="submit">Editeaza comentariu</button>
+</form>
+

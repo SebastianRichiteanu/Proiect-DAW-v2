@@ -1,0 +1,62 @@
+﻿@model OnlineShop.Models.Product
+@{
+    ViewBag.Title = "Show";
+}
+
+<h1>Afisare Produs</h1>
+<h2>Nume: @Model.Title</h2>
+<p>Descriere: @Model.Description</p>
+<p>Pret: @Model.Price</p>
+<p>Rating: @Model.Rating</p>
+
+<a href="/Products/Edit/@Model.Id">Modifica produs</a>
+<form method="post" action="/Products/Delete/@Model.Id">
+    @Html.HttpMethodOverride(HttpVerbs.Delete)
+    <button type="submit">Sterge produs</button>
+</form>
+<br /> <br />
+<a href="/Products/New">Adauga produs</a>
+<br /> <br />
+<a href="/Products/Index">Inapoi la produse</a>
+
+<form method="post" action="/Reviews/New">
+    <div class="panel-body">
+        <input type="hidden" name="ProductId" value="@Model.Id" />
+        @Html.Label("ReviewComment", "Comentariu")
+        <br />
+        @Html.Editor("ReviewComment")
+        <br />
+        @Html.Label("ReviewRating", "Rating")
+        <br />
+        @Html.Editor("ReviewRating")
+        <br />
+        <button class="btn btn-success " type="submit">Adauga comentariu</button>
+    </div>
+</form>
+
+<br />
+@foreach (var rev in Model.Reviews)
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div>
+                    <p>Rating: @rev.ReviewRating</p>
+                    <p>@rev.ReviewComment</p>
+                </div>
+                <div style="display: inline-block; float : left; margin-right: 15px">
+                    <a class="glyphicon glyphicon-pencil" href="/Reviews/Edit/@rev.ReviewId"></a>
+                </div>
+                <div style="display: inline-block; float : left">
+                    <form method="post" action="/Reviews/Delete/@rev.ReviewId">
+                        @Html.HttpMethodOverride(HttpVerbs.Delete)
+                        <button class="glyphicon glyphicon-trash" style="border: none; background: transparent" type="submit"></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+    <hr />
+}
