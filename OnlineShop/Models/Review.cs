@@ -11,15 +11,16 @@ namespace OnlineShop.Models
     {
         [Key]
         public int ReviewId { get; set; }
-        [Required] // ???
         public string ReviewComment { get; set; }
-        [Required] // ???
-        public int ReviewRating { get; set; } // int? rating = {0,1,2,3,4,5}
+        [Required]
+        [Range(1,5,ErrorMessage = "Ratingul este intre 1 si 5 stele!")]
+        public int ReviewRating { get; set; } 
         public int ProductId { get; set; }
 
         public virtual Product Product { get; set; }
 
         public string UserId { get; set; }
+        public string UserName { get; set; }
         public virtual ApplicationUser User { get; set; }
     }
 }

@@ -20,6 +20,10 @@
     @Html.Label("Price", "Pret Produs")
     @Html.TextArea("Price", null, new { @class = "form-control" })
     <br />
+    <p>
+        <input type="file" name="ImageData" id="ImageData" onchange="fileCheck(this);" />
+    </p>
+    <br />
     <label>Selectati categoria</label>
     @Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.Categ, "Value", "Text"),
     "Selectati categoria", new { @class = "form-control" })

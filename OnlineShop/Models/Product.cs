@@ -15,7 +15,7 @@ namespace OnlineShop.Models
         [Required]
         public string Title { get; set; }
         public string Description { get; set; }
-        //public ? Picture { get; set; }
+        public byte[] Picture { get; set; }
         [Required]
         public float Price { get; set; }
         public float Rating { get; set; }

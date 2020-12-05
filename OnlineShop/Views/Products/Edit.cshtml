@@ -22,10 +22,6 @@
     @Html.EditorFor(m => m.Price)
     @Html.ValidationMessageFor(m => m.Price, "", new { @class = "text-danger" })
     <br />
-    @Html.Label("Rating", "Rating")
-    <br />
-    @Html.EditorFor(m => m.Rating)
-    @Html.ValidationMessageFor(m => m.Rating, "", new { @class = "text-danger" })
     <br /><br />
     <label>Selectati categoria</label>
     @Html.DropDownListFor(m => m.CategoryId,

@@ -2,6 +2,7 @@
 using OnlineShop.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Web;
@@ -57,6 +58,23 @@ namespace OnlineShop.Controllers
         public ActionResult Show(int id)
         {
             Product product = db.Products.Find(id);
+
+            ViewBag.afisareButoane = false;
+            if (User.IsInRole("Editor") || User.IsInRole("Admin"))
+            {
+                ViewBag.afisareButoane = true;
+            }
+            ViewBag.esteAdmin = User.IsInRole("Admin");
+            ViewBag.utilizatorCurent = User.Identity.GetUserId();
+
+            float medie = 0;
+            int nr = 0;
+            foreach (var review in product.Reviews)
+            {
+                medie += review.ReviewRating;
+                ++nr;
+            }
+            ViewBag.Rating = (decimal)Math.Round(medie/nr, 2);
             return View(product);
         }
         [Authorize(Roles = "Editor,Admin")]

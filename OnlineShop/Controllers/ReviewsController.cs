@@ -24,6 +24,7 @@ namespace OnlineShop.Controllers
             try
             {
                 rev.UserId = User.Identity.GetUserId();
+                rev.UserName = db.Users.Find(rev.UserId).UserName;
                 db.Reviews.Add(rev);
                 db.SaveChanges();
                 return Redirect("/Products/Show/" + rev.ProductId);
