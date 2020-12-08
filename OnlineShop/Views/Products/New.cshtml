@@ -5,7 +5,7 @@
 
 <h1>Adaugare Produs</h1>
 
-@using (Html.BeginForm(actionName: "New", controllerName: "Products"))
+@using (Html.BeginForm( "New", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.ValidationSummary(false, "", new { @class = "text-danger" })
     @Html.Label("Title", "Nume Produs")
@@ -20,9 +20,12 @@
     @Html.Label("Price", "Pret Produs")
     @Html.TextArea("Price", null, new { @class = "form-control" })
     <br />
-    <p>
-        <input type="file" name="ImageData" id="ImageData" onchange="fileCheck(this);" />
-    </p>
+    @Html.LabelFor(model => model.Picture,htmlAttributes: new {  @class = "control-label col-md-2"})
+    <br />
+    <div class="col-md-10">
+        <input type="file" name="Image" id="Image" class="input-files" />
+    </div>
+    <br />
     <br />
     <label>Selectati categoria</label>
     @Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.Categ, "Value", "Text"),

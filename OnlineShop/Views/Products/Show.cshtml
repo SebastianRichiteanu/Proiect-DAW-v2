@@ -10,6 +10,18 @@
 <p>Descriere: @Model.Description</p>
 <p>Pret: @Model.Price</p>
 <p>Rating: @ViewBag.Rating</p>
+<p>
+    Poza: @{
+        var base64 = Convert.ToBase64String(Model.Picture);
+        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+    }
+
+    <img src="@imgSrc" style=
+         "max-height:200px;
+        max-width:200px;
+        height:auto;
+        width:auto;"/>
+</p>
 
 
 @if (ViewBag.afisareButoane == true && Model.UserId == ViewBag.utilizatorCurent || ViewBag.esteAdmin)

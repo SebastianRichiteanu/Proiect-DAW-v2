@@ -2,6 +2,7 @@
 using OnlineShop.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -30,15 +31,18 @@ namespace OnlineShop.Controllers
         }
         [HttpPost]
         [Authorize(Roles = "Editor,Admin")]
-        public ActionResult New(Product prod)
+        public ActionResult New(Product prod,HttpPostedFileBase Image)
         {
             prod.Categ = GetAllCategories();
             prod.UserId = User.Identity.GetUserId();
             
             try
             {
-                if (ModelState.IsValid)
+
+                if (ModelState.IsValid && Image != null)
                 {
+                    prod.Picture = new byte[Image.ContentLength];
+                    Image.InputStream.Read(prod.Picture, 0, Image.ContentLength);
                     db.Products.Add(prod);
                     db.SaveChanges();
                     TempData["message"] = "Produsul a fost adaugat";
@@ -74,15 +78,18 @@ namespace OnlineShop.Controllers
                 medie += review.ReviewRating;
                 ++nr;
             }
-            ViewBag.Rating = (decimal)Math.Round(medie/nr, 2);
+            if (nr > 0)
+                ViewBag.Rating = (decimal)Math.Round(medie / nr, 2);
+            else
+                ViewBag.Rating = "Nu are rating-uri";
             return View(product);
         }
         [Authorize(Roles = "Editor,Admin")]
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int id, HttpPostedFileBase Image)
         {
             Product prod = db.Products.Find(id);
             prod.Categ = GetAllCategories();
-
+            
             if (prod.UserId == User.Identity.GetUserId() || User.IsInRole("Admin"))
             {
                 
