@@ -85,7 +85,7 @@ namespace OnlineShop.Controllers
             return View(product);
         }
         [Authorize(Roles = "Editor,Admin")]
-        public ActionResult Edit(int id, HttpPostedFileBase Image)
+        public ActionResult Edit(int id)
         {
             Product prod = db.Products.Find(id);
             prod.Categ = GetAllCategories();
@@ -105,7 +105,7 @@ namespace OnlineShop.Controllers
         
         [HttpPut]
         [Authorize(Roles = "Editor,Admin")]
-        public ActionResult Edit(int id, Product requestProduct)
+        public ActionResult Edit(int id, Product requestProduct, HttpPostedFileBase Image)
         {
             requestProduct.Categ = GetAllCategories();
 
@@ -123,6 +123,8 @@ namespace OnlineShop.Controllers
                             product.Price = requestProduct.Price;
                             product.Rating = requestProduct.Rating;
                             product.CategoryId = requestProduct.CategoryId;
+                            product.Picture = new byte[Image.ContentLength];
+                            Image.InputStream.Read(product.Picture, 0, Image.ContentLength);
 
                             db.SaveChanges();
                             TempData["message"] = "Produsul a fost modificat";

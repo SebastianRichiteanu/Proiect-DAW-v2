@@ -1,6 +1,6 @@
 ﻿@model OnlineShop.Models.Product
 
-@using (Html.BeginForm(actionName: "Edit", controllerName: "Products"))
+@using (Html.BeginForm("Edit", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.HttpMethodOverride(HttpVerbs.Put)
 
@@ -22,6 +22,11 @@
     @Html.EditorFor(m => m.Price)
     @Html.ValidationMessageFor(m => m.Price, "", new { @class = "text-danger" })
     <br />
+    @Html.LabelFor(model => model.Picture, htmlAttributes: new { @class = "control-label col-md-2" })
+    <br />
+    <div class="col-md-2">
+        <input type="file" name="Image" id="Image" class="input-files" />
+    </div>
     <br /><br />
     <label>Selectati categoria</label>
     @Html.DropDownListFor(m => m.CategoryId,
