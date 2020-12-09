@@ -6,10 +6,17 @@
 
 <h1>Afisare Categorii</h1>
 
+<br />
+<a class="btn btn-primary" href="/Categories/New">Adauga categorie</a>
+<br />
+<br />
+
 @foreach (OnlineShop.Models.Category category in ViewBag.Categories)
 {
-    @Html.Partial("CategoryInfo", category);
+    <div class="panel panel-default">
+        @Html.Partial("CategoryInfo", category)
+        <div class="panel-footer">
+            <a class="btn btn-success" href="/Categories/Show/@category.CategoryId">Afisare Categorie</a>
+        </div>
+    </div>
 }
-<br />
-<a href="/Categories/New">Adauga categorie</a>
-<br />

@@ -6,13 +6,17 @@
 
 <h1>Afisare Categorie</h1>
 
-@Html.Partial("CategoryInfo", Model)
+<div class="panel panel-default">
+    @Html.Partial("CategoryInfo", Model)
+    <div class="panel-footer">
+        <a class="btn btn-success pull-left" href="/Categories/Edit/@Model.CategoryId">Modifica categoria</a>
+        <form method="post" action="/Categories/Delete/@Model.CategoryId">
+            @Html.HttpMethodOverride(HttpVerbs.Delete)
+            <button class="btn btn-danger pull-right" type="submit">Sterge categoria</button>
+        </form>
+        <div class="clearfix"></div>
+    </div>
+</div>
 
-<a href="/Categories/Edit/@Model.CategoryId">Modifica categoria</a>
-<br />
-<br />
-<form method="post" action="/Categories/Delete/@Model.CategoryId">
-    @Html.HttpMethodOverride(HttpVerbs.Delete)
-    <button type="submit">Sterge categorie</button>
-</form>
-<hr />
+
+

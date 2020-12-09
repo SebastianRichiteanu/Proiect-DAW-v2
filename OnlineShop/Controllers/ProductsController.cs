@@ -64,6 +64,7 @@ namespace OnlineShop.Controllers
             Product prod = new Product();
             prod.Categ = GetAllCategories();
             prod.UserId = User.Identity.GetUserId();
+            prod.Rating = -1;
             if (User.IsInRole("Admin"))
                 prod.Activat = true;
             else
@@ -76,6 +77,7 @@ namespace OnlineShop.Controllers
         {
             prod.Categ = GetAllCategories();
             prod.UserId = User.Identity.GetUserId();
+            prod.Rating = -1;
             if (User.IsInRole("Admin"))
                 prod.Activat = true;
             else
