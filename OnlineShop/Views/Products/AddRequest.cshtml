@@ -1,0 +1,31 @@
+﻿@model OnlineShop.Models.Product
+
+@{
+    /**/
+
+    ViewBag.Title = "Index";
+}
+
+<h1>Afisare produse</h1>
+
+@foreach (OnlineShop.Models.Product product in ViewBag.Products)
+{
+    if (product.Activat == false)
+    {
+        <h1>Nume: @product.Title</h1>
+        <p>Descriere: @product.Description</p>
+        <p>Pret: @product.Price</p>
+        // <p>Rating: @product.Rating</p>
+        <p>Categorie: @product.Category.CategoryName</p>
+        <i class="glyphicon glyphicon-user"></i> <i>produs adaugat de</i> <strong> @product.User.UserName </strong>
+        <br />
+        <a href="/Products/Activat/@product.Id">Add in shop</a>
+        <br />
+        <form method="post" action="/Products/Delete/@product.Id">
+            @Html.HttpMethodOverride(HttpVerbs.Delete)
+            <button type="submit">Sterge produs</button>
+        </form>
+    }
+
+
+}

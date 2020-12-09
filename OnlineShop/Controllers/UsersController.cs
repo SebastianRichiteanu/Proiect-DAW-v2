@@ -14,6 +14,7 @@ namespace OnlineShop.Controllers
     {
         private ApplicationDbContext db = ApplicationDbContext.Create();
         // GET: Users
+
         public ActionResult Index()
         {
             var users = from user in db.Users

@@ -1,0 +1,21 @@
+﻿@model OnlineShop.Models.Product
+
+@using (Html.BeginForm("Activat", "Products", FormMethod.Post))
+{
+    @Html.HttpMethodOverride(HttpVerbs.Put)
+
+    @Html.HiddenFor(m => m.Id)
+    <br />
+
+    @Html.Label("Activat", "Activat?")
+    <br />
+    @Html.EditorFor(m => m.Activat)
+    @Html.ValidationMessageFor(m => m.Activat, "", new { @class = "text-danger" })
+    <br /><br />
+
+
+
+
+
+    <button class="btn btn-sm btn-success" type="submit">Modifica produs</button>
+}

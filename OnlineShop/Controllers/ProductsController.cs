@@ -15,11 +15,48 @@ namespace OnlineShop.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        public ActionResult Index()
+        [Authorize(Roles = "Admin")]
+        public ActionResult AddRequest()
         {
-            var products = db.Products.Include("Category");
+            var products = db.Products.Include("Category").Include("User");
             ViewBag.Products = products;
             return View();
+        }
+
+        public ActionResult Index()
+        {
+            var products = db.Products.Include("Category").Include("User");
+            ViewBag.Products = products;
+            return View();
+        }
+
+        [Authorize(Roles = "Admin")]
+        public ActionResult Activat(int id)
+        {
+            Product prod = db.Products.Find(id);
+            prod.Categ = GetAllCategories();
+            return View(prod);
+        }
+
+        [HttpPut]
+        [Authorize(Roles = "Admin")]
+        public ActionResult Activat(int id, Product requestProduct)
+        {
+            requestProduct.Categ = GetAllCategories();
+
+            try
+            {
+                    Product product = db.Products.Find(id);
+                    product.Activat = requestProduct.Activat;
+                    db.SaveChanges();
+                    TempData["message"] = "Produsul a fost modificat";
+                        
+                        return RedirectToAction("AddRequest");
+            }
+            catch (Exception e)
+            {
+                return View(requestProduct);
+            }
         }
         [Authorize(Roles = "Editor,Admin")]
         public ActionResult New()
@@ -27,6 +64,10 @@ namespace OnlineShop.Controllers
             Product prod = new Product();
             prod.Categ = GetAllCategories();
             prod.UserId = User.Identity.GetUserId();
+            if (User.IsInRole("Admin"))
+                prod.Activat = true;
+            else
+                prod.Activat = false;
             return View(prod);
         }
         [HttpPost]
@@ -35,7 +76,11 @@ namespace OnlineShop.Controllers
         {
             prod.Categ = GetAllCategories();
             prod.UserId = User.Identity.GetUserId();
-            
+            if (User.IsInRole("Admin"))
+                prod.Activat = true;
+            else
+                prod.Activat = false;
+
             try
             {
 
@@ -105,7 +150,7 @@ namespace OnlineShop.Controllers
         
         [HttpPut]
         [Authorize(Roles = "Editor,Admin")]
-        public ActionResult Edit(int id, Product requestProduct, HttpPostedFileBase Image)
+        public ActionResult Edit(int id, Product requestProduct)
         {
             requestProduct.Categ = GetAllCategories();
 
@@ -123,8 +168,8 @@ namespace OnlineShop.Controllers
                             product.Price = requestProduct.Price;
                             product.Rating = requestProduct.Rating;
                             product.CategoryId = requestProduct.CategoryId;
-                            product.Picture = new byte[Image.ContentLength];
-                            Image.InputStream.Read(product.Picture, 0, Image.ContentLength);
+                           // product.Activat = requestProduct.Activat;
+                            
 
                             db.SaveChanges();
                             TempData["message"] = "Produsul a fost modificat";

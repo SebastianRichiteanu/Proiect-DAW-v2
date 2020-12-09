@@ -8,7 +8,12 @@
 
 @foreach (OnlineShop.Models.Product product in ViewBag.Products)
 {
-    @Html.Partial("ProductInfo", product);
+    if (product.Activat == true)
+    {
+        @Html.Partial("ProductInfo", product)
+    }
+    
+
 }
 
 

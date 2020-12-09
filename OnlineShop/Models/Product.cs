@@ -19,6 +19,8 @@ namespace OnlineShop.Models
         [Required]
         public float Price { get; set; }
         public float Rating { get; set; }
+        public bool Activat { get; set; }
+
         public int CategoryId { get; set; }
 
         public virtual Category Category { get; set; }
