@@ -1,40 +1,38 @@
 ﻿@model OnlineShop.Models.Product
 
+
+<h1>Editare produs @Model.Title</h1>
+
 @using (Html.BeginForm("Edit", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.HttpMethodOverride(HttpVerbs.Put)
-
     @Html.HiddenFor(m => m.Id)
     <br />
     @Html.Label("Title", "Nume produs")
     <br />
-    @Html.Editor("Title")
+    @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
     @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
     <br />
-   
     @Html.Label("Description", "Descriere Produs")
     <br />
-    @Html.EditorFor(m => m.Description)
+    @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
     @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
-
     <br />
-    @Html.Label("Price", "Pret")
+    @Html.Label("Price", "Pret produs")
     <br />
-    @Html.EditorFor(m => m.Price)
+    @Html.TextBoxFor(m => m.Price, new { @class = "form-control" })
     @Html.ValidationMessageFor(m => m.Price, "", new { @class = "text-danger" })
     <br />
-    @Html.LabelFor(model => model.Picture, htmlAttributes: new { @class = "control-label col-md-2" })
+    @Html.LabelFor(model => model.Picture, htmlAttributes: new { @class = "control-label" })
     <br />
-    <div class="col-md-2">
-        <input type="file" name="Image" id="Image" class="input-files" />
-    </div>
-    <br /><br />
+    <input type="file" name="Image" id="Image" class="input-files" />
+    <br />
     <label>Selectati categoria</label>
     @Html.DropDownListFor(m => m.CategoryId,
         new SelectList(Model.Categ, "Value", "Text"),
         "Selectati categoria", new { @class = "form-control" })
     @Html.ValidationMessageFor(m => m.CategoryId, "", new { @class = "text-danger" })
     <br />
-
+    <br />
     <button class="btn btn-sm btn-success" type="submit">Modifica produs</button>
 }

@@ -2,83 +2,85 @@
 @{
     ViewBag.Title = "Show";
 }
+<br/>
+<div class="panel panel-default">
 
+    @Html.Partial("ProductInfo", Model)
 
-
-<h1>Afisare Produs</h1>
-<h2>Nume: @Model.Title</h2>
-<p>Descriere: @Model.Description</p>
-<p>Pret: @Model.Price</p>
-<p>Rating: @Model.Rating</p>
-<p>
-    Poza: @{
-        var base64 = Convert.ToBase64String(Model.Picture);
-        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+    @if (ViewBag.afisareButoane == true && Model.UserId == ViewBag.utilizatorCurent || ViewBag.esteAdmin)
+    {
+    <div class="panel-footer">
+        <a class="btn btn-success pull-left" href="/Products/Edit/@Model.Id">Modifica produs</a>
+        <form method="post" action="/Products/Delete/@Model.Id">
+            @Html.HttpMethodOverride(HttpVerbs.Delete)
+            <button class="btn btn-danger pull-right" type="submit">Sterge produs</button>
+        </form>
+        <div class="clearfix"></div>
+    </div>
     }
 
-    <img src="@imgSrc" style=
-         "max-height:200px;
-        max-width:200px;
-        height:auto;
-        width:auto;"/>
-</p>
 
+</div>
 
-@if (ViewBag.afisareButoane == true && Model.UserId == ViewBag.utilizatorCurent || ViewBag.esteAdmin)
-{
-    <a href="/Products/Edit/@Model.Id">Modifica produs</a>
-    <form method="post" action="/Products/Delete/@Model.Id">
-        @Html.HttpMethodOverride(HttpVerbs.Delete)
-        <button type="submit">Sterge produs</button>
-    </form>
-}
-
-    <br /> <br />
-    <a href="/Products/Index">Inapoi la produse</a>
-
-    <form method="post" action="/Reviews/New">
-        <div class="panel-body">
-            <input type="hidden" name="ProductId" value="@Model.Id" />
-            @Html.Label("ReviewComment", "Comentariu")
-            <br />
-            @Html.Editor("ReviewComment")
-            <br />
-            @Html.Label("ReviewRating", "Rating (1-5)")
-            <br />
-            @Html.Editor("ReviewRating")
-            <br />
-            <br />
-            <button class="btn btn-success " type="submit">Adauga comentariu</button>
-        </div>
-    </form>
-
-    <br />
-    @foreach (var rev in Model.Reviews)
-    {
+<div class="panel-body">
+    <div style="width:50%;float:left">
         <div class="container">
             <div class="row">
-                <div class="col-md-2"></div>
                 <div class="col-md-8">
-                    <div>
-                        <p>Rating: @rev.ReviewRating</p>
-                        <p>Comment: @rev.ReviewComment</p>
-                        <p>User: @rev.UserName</p>
-                    </div>
-                    @if (rev.UserId == ViewBag.utilizatorCurent || ViewBag.esteAdmin)
-                    {
-                        <div style="display: inline-block; float : left; margin-right: 15px">
-                            <a class="glyphicon glyphicon-pencil" href="/Reviews/Edit/@rev.ReviewId"></a>
-                        </div>
-                        <div style="display: inline-block; float : left">
-                            <form method="post" action="/Reviews/Delete/@rev.ReviewId">
-                                @Html.HttpMethodOverride(HttpVerbs.Delete)
-                                <button class="glyphicon glyphicon-trash" style="border: none; background: transparent" type="submit"></button>
-                            </form>
-                        </div>
-                    }
+                    
+                        <form method="post" action="/Reviews/New">
+                            <div class="panel-body">
+                                <input type="hidden" name="ProductId" value="@Model.Id" />
+                                @Html.Label("ReviewRating", "Rating (1-5)")
+                                <br />
+                                @Html.Editor("ReviewRating")
+                                <br />
+                                @Html.Label("ReviewComment", "Comentariu")
+                                <br />
+                                @Html.TextArea("ReviewComment", null, new { @class = "form-control" })
+                                <br />
+                                <br />
+                                <button class="btn btn-success " type="submit">Adauga comentariu</button>
+                            </div>
+                        </form>
+                    
                 </div>
             </div>
-            <div class="col-md-2"></div>
         </div>
-        <hr />
-    }
+    </div>
+
+    <div style="width:50%;float:right">
+
+        @foreach (var rev in Model.Reviews)
+        {
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <div>
+                            <p>User: @rev.UserName</p>
+                            <p>Comment: @rev.ReviewComment</p>
+                            <p>Rating: @rev.ReviewRating</p>
+                        </div>
+                        @if (rev.UserId == ViewBag.utilizatorCurent || ViewBag.esteAdmin)
+                        {
+                            <div style="display: inline-block; float : left; margin-right: 15px">
+                                <a class="glyphicon glyphicon-pencil" href="/Reviews/Edit/@rev.ReviewId"></a>
+                            </div>
+                            <div style="display: inline-block; float : left">
+                                <form method="post" action="/Reviews/Delete/@rev.ReviewId">
+                                    @Html.HttpMethodOverride(HttpVerbs.Delete)
+                                    <button class="glyphicon glyphicon-trash" style="border: none; background: transparent" type="submit"></button>
+                                </form>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+            <hr />
+        }
+    </div>
+
+
+</div>

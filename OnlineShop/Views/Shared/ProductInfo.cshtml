@@ -1,15 +1,34 @@
-﻿<h1>Nume: @Model.Title</h1>
-<p>Descriere: @Model.Description</p>
-<p>Pret: @Model.Price</p>
-@if (Model.Rating == -1)
-{
-    <p>Rating: Nu are rating-uri inca!</p>
-}
-else
-{
-    <p>Rating: @Model.Rating</p>
-}
-<p>Categorie: @Model.Category.CategoryName</p>
-<a href="/Products/Show/@Model.Id">Afisare produs</a>
-<br />
-<i class="glyphicon glyphicon-user"></i> <i>produs adaugat de</i> <strong> @Model.User.UserName </strong>
+﻿<div class="panel-heading">@Model.Title</div>
+<div class="panel-body">
+    <div style="width:70%;float: left">
+        Descriere: @Model.Description
+        <br />
+        Pret: @Model.Price <i class="glyphicon glyphicon-euro"></i>
+        @if (Model.Rating == -1)
+        {
+            <p>Rating: Nu are rating-uri inca!</p>
+        }
+        else
+        {
+            <p>Rating: @Model.Rating <i class="glyphicon glyphicon-star"></i> </p>
+        }
+        <i class="glyphicon glyphicon-globe"></i> Categorie: @Model.Category.CategoryName
+        <br />
+        <i class="glyphicon glyphicon-user"></i> <i>produs adaugat de</i> <strong> @Model.User.UserName </strong>
+        
+    </div>
+    <div style="width:30%;float:right">
+        <p>
+            @{
+                var base64 = Convert.ToBase64String(Model.Picture);
+                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+            }
+            <img src="@imgSrc" style="
+                max-height:200px;
+                max-width:200px;
+                height:auto;
+                width:auto;" />
+        </p>
+
+    </div>
+</div>

@@ -10,10 +10,15 @@
 {
     if (product.Activat == true)
     {
-        @Html.Partial("ProductInfo", product)
+        <div class="panel panel-default">
+            @Html.Partial("ProductInfo", product)
+            <div class="panel-footer">
+                <a class="btn btn-success" href="/Products/Show/@product.Id"> Afisare produs </a>
+            </div>
+        </div>
     }
-    
 
-}
+
+    }
 
 
