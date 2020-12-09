@@ -19,8 +19,11 @@
         <p>Categorie: @product.Category.CategoryName</p>
         <i class="glyphicon glyphicon-user"></i> <i>produs adaugat de</i> <strong> @product.User.UserName </strong>
         <br />
-        <a href="/Products/Activat/@product.Id">Add in shop</a>
+        <a href="/Products/Show/@product.Id">Vezi detalii</a>
         <br />
+        <a href="/Products/Activat/@product.Id">Adauga in shop</a>
+        <br />
+
         <form method="post" action="/Products/Delete/@product.Id">
             @Html.HttpMethodOverride(HttpVerbs.Delete)
             <button type="submit">Sterge produs</button>

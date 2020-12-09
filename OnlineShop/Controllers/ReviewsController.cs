@@ -2,6 +2,7 @@
 using OnlineShop.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Web;
@@ -25,8 +26,10 @@ namespace OnlineShop.Controllers
             {
                 rev.UserId = User.Identity.GetUserId();
                 rev.UserName = db.Users.Find(rev.UserId).UserName;
+
                 db.Reviews.Add(rev);
                 db.SaveChanges();
+                CalcMedie(rev.ProductId);
                 return Redirect("/Products/Show/" + rev.ProductId);
             }
 
@@ -65,6 +68,7 @@ namespace OnlineShop.Controllers
                         rev.ReviewComment = requestRev.ReviewComment;
                         rev.ReviewRating = requestRev.ReviewRating;
                         db.SaveChanges();
+                        CalcMedie(rev.ProductId);
                     }
                 return Redirect("/Products/Show/" + rev.ProductId);
             }
@@ -84,6 +88,7 @@ namespace OnlineShop.Controllers
             {
                 db.Reviews.Remove(rev);
                 db.SaveChanges();
+                CalcMedie(rev.ProductId);
                 return Redirect("/Products/Show/" + rev.ProductId);
             }
             else
@@ -92,6 +97,21 @@ namespace OnlineShop.Controllers
                 return RedirectToAction("Index", "Products");
             }
         }
-
+        public void CalcMedie (int id)
+        {
+            Product prod = db.Products.Find(id);
+            float medie = 0;
+            int nr = 0;
+            foreach (var review in prod.Reviews)
+            {
+                ++nr;
+                medie += review.ReviewRating;
+            }
+            if (nr == 0)
+                prod.Rating = -1;
+            else 
+                prod.Rating = (float)Math.Round(medie / nr, 2);
+            db.SaveChanges();
+        }
     }
 }

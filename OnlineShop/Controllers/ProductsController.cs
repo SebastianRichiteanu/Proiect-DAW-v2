@@ -116,17 +116,6 @@ namespace OnlineShop.Controllers
             ViewBag.esteAdmin = User.IsInRole("Admin");
             ViewBag.utilizatorCurent = User.Identity.GetUserId();
 
-            float medie = 0;
-            int nr = 0;
-            foreach (var review in product.Reviews)
-            {
-                medie += review.ReviewRating;
-                ++nr;
-            }
-            if (nr > 0)
-                ViewBag.Rating = (decimal)Math.Round(medie / nr, 2);
-            else
-                ViewBag.Rating = "Nu are rating-uri";
             return View(product);
         }
         [Authorize(Roles = "Editor,Admin")]

@@ -1,7 +1,14 @@
 ﻿<h1>Nume: @Model.Title</h1>
 <p>Descriere: @Model.Description</p>
 <p>Pret: @Model.Price</p>
-<p>Rating: @Model.Rating</p>
+@if (Model.Rating == -1)
+{
+    <p>Rating: Nu are rating-uri inca!</p>
+}
+else
+{
+    <p>Rating: @Model.Rating</p>
+}
 <p>Categorie: @Model.Category.CategoryName</p>
 <a href="/Products/Show/@Model.Id">Afisare produs</a>
 <br />
