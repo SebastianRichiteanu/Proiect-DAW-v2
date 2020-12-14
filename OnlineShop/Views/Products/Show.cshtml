@@ -59,7 +59,10 @@
                     <div class="col-md-8">
                         <div>
                             <p>User: @rev.UserName</p>
-                            <p>Comment: @rev.ReviewComment</p>
+                            @if (rev.ReviewComment != null)
+                            {
+                                <p>Comment: @rev.ReviewComment</p>
+                            }
                             <p>Rating: @rev.ReviewRating</p>
                         </div>
                         @if (rev.UserId == ViewBag.utilizatorCurent || ViewBag.esteAdmin)

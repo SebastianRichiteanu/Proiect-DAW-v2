@@ -4,6 +4,13 @@
     ViewBag.Title = "Index";
 }
 
+
+@if (TempData.ContainsKey("message"))
+{
+    <h1>@ViewBag.message</h1>
+}
+
+
 <h1>Afisare Categorii</h1>
 
 <br />

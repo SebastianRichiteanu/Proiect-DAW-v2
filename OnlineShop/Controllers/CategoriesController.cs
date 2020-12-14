@@ -14,6 +14,11 @@ namespace OnlineShop.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
+            if (TempData.ContainsKey("message"))
+            {
+                ViewBag.message = TempData["message"].ToString();
+            }
+
             var categories = db.Categories;
             ViewBag.Categories = categories;
             return View();

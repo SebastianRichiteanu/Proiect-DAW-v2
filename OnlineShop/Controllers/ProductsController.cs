@@ -25,6 +25,11 @@ namespace OnlineShop.Controllers
 
         public ActionResult Index()
         {
+            if (TempData.ContainsKey("message"))
+            {
+                ViewBag.message = TempData["message"].ToString();
+            }
+
             var products = db.Products.Include("Category").Include("User");
             ViewBag.Products = products;
             return View();
@@ -159,7 +164,7 @@ namespace OnlineShop.Controllers
                             product.Price = requestProduct.Price;
                             product.Rating = requestProduct.Rating;
                             product.CategoryId = requestProduct.CategoryId;
-                           // product.Activat = requestProduct.Activat;
+                          
                             
 
                             db.SaveChanges();
