@@ -23,14 +23,36 @@ namespace OnlineShop.Controllers
             return View();
         }
 
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder)
         {
+           
+
             if (TempData.ContainsKey("message"))
             {
                 ViewBag.message = TempData["message"].ToString();
             }
 
-            var products = db.Products.Include("Category").Include("User");
+            var products = from p in db.Products.Include("Category").Include("User")
+                           select p;
+
+
+           
+            switch (sortOrder)
+            {
+                case "pret_desc":
+                    products = products.OrderByDescending(s => s.Price);
+                    break;
+                case "pret_cresc":
+                    products = products.OrderBy(s => s.Price);
+                    break;
+                case "rating_desc":
+                    products = products.OrderByDescending(s => s.Rating);
+                    break;
+                case "rating_cresc":
+                    products = products.OrderBy(s => s.Rating);
+                    break;
+            }
+
             ViewBag.Products = products;
             return View();
         }
@@ -56,7 +78,7 @@ namespace OnlineShop.Controllers
                     db.SaveChanges();
                     TempData["message"] = "Produsul a fost modificat";
                         
-                        return RedirectToAction("AddRequest");
+                    return RedirectToAction("AddRequest");
             }
             catch (Exception e)
             {

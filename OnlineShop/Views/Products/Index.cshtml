@@ -12,6 +12,23 @@
 
 <h2>Afisare produse</h2>
 
+@Html.DropDownList("ProductDropDown", new List<SelectListItem>
+{
+    new SelectListItem{ Text="Nimic", Value = "aaa"},
+    new SelectListItem{ Text="Pret Crescator", Value = "pret_cresc",Selected = true },
+    new SelectListItem{ Text="Pret Descrescator", Value = "pret_desc" },
+    new SelectListItem{ Text="Rating Crescator", Value = "rating_cresc" },
+    new SelectListItem{ Text="Rating Descrescator", Value = "rating_desc" },
+ })
+<br />
+<br />
+
+<th>
+    @Html.ActionLink("Buton", "Index")
+</th>
+<br />
+<br />
+
 @foreach (OnlineShop.Models.Product product in ViewBag.Products)
 {
     if (product.Activat == true)
