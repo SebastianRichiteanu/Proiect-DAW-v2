@@ -14,6 +14,7 @@ namespace OnlineShop.Controllers
     public class ProductsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private int _perPage = 3;
 
         [Authorize(Roles = "Admin")]
         public ActionResult AddRequest()
@@ -23,37 +24,74 @@ namespace OnlineShop.Controllers
             return View();
         }
 
-        public ActionResult Index(string sortOrder)
+        public ActionResult Index()
         {
-           
-
             if (TempData.ContainsKey("message"))
             {
                 ViewBag.message = TempData["message"].ToString();
             }
 
-            var products = from p in db.Products.Include("Category").Include("User")
-                           select p;
+            
+
+            var sortOrder = Request.Params.Get("Sortare") ;
+            var search = "";
+            var products = from p in db.Products.Include("Category").Include("User").OrderBy(p => p.Title) select p;
+
+            Debug.Write(sortOrder);
+
+            List<SelectListItem> sort = new List<SelectListItem>();
+            string def = sortOrder;
+
+            sort.Add(new SelectListItem() { Text = "Normal", Value = "0", Selected = ("0" == def ? true : false) });
+            sort.Add(new SelectListItem() { Text = "Pret Crescator", Value = "1", Selected = ("1" == def ? true : false) });
+            sort.Add(new SelectListItem() { Text = "Pret Descrescator", Value = "2", Selected = ("2" == def ? true : false) });
+            sort.Add(new SelectListItem() { Text = "Rating Crescator", Value = "3", Selected = ("3" == def ? true : false) });
+            sort.Add(new SelectListItem() { Text = "Rating Descrescator", Value = "4", Selected = ("4" == def ? true : false) });
+
+            ViewBag.sort = sort;
 
 
-           
-            switch (sortOrder)
+            if (Request.Params.Get("search") != null)
             {
-                case "pret_desc":
-                    products = products.OrderByDescending(s => s.Price);
-                    break;
-                case "pret_cresc":
-                    products = products.OrderBy(s => s.Price);
-                    break;
-                case "rating_desc":
-                    products = products.OrderByDescending(s => s.Rating);
-                    break;
-                case "rating_cresc":
-                    products = products.OrderBy(s => s.Rating);
-                    break;
+                search = Request.Params.Get("search").Trim();
+                products = products.Where(p => p.Title.Contains(search) || p.Description.Contains(search));
             }
 
-            ViewBag.Products = products;
+            switch (sortOrder)
+            {
+                case "1":
+                    products = products.OrderBy(p => p.Price);
+                    break;
+                case "2":
+                    products = products.OrderByDescending(p => p.Price);
+                    break;
+                case "3":
+                    products = products.OrderBy(p => p.Rating);
+                    break;
+                case "4":
+                    products = products.OrderByDescending(p => p.Rating);
+                    break;
+                default:
+                    break;
+            }
+        
+            var totalItems = products.Count();
+            var currentPage = Convert.ToInt32(Request.Params.Get("page"));
+            var offset = 0;
+            if (!currentPage.Equals(0))
+            {
+                offset = (currentPage - 1) * this._perPage;
+            }
+
+            var paginatedProducts = products.Skip(offset).Take(this._perPage);
+
+            ViewBag.total = totalItems;
+            ViewBag.lastPage = Math.Ceiling((float)totalItems / (float)this._perPage);
+            ViewBag.Products = paginatedProducts;
+            ViewBag.SearchString = search;
+            ViewBag.Sortare = def;
+
+            
             return View();
         }
 
