@@ -15,19 +15,14 @@ namespace OnlineShop.Controllers
 
         public ActionResult Index()
         {
+            Product prod = db.Products.Find(34);
             string usr_id = User.Identity.GetUserId();
-            var products = db.Carts.Find(usr_id);
+            var products = db.Carts.Where(c => c.UserId.Equals(usr_id));
             ViewBag.carts = products;
 
             return View();
         }
-        public ActionResult New()
-        {
-            return View();
-        }
 
-
-        [HttpPost]
         public ActionResult New(int id)
         {
             Product prod = db.Products.Find(id);
