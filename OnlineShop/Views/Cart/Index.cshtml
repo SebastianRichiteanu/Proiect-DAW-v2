@@ -1,19 +1,66 @@
 ﻿@model OnlineShop.Models.Cart
 
 @{
-    ViewBag.Title = "Index";
+    /**/
+
+    ViewBag.Title = "Cos";
 }
 
-<h2>Index</h2>
+<h2>Cos</h2>
 
 
 @foreach (OnlineShop.Models.Cart cart in ViewBag.carts)
 {
-    <p>@cart.ProductId</p>
-    <p>@cart.Quantity</p>
+    foreach (OnlineShop.Models.Product product in ViewBag.Prod)
+    {
+        if (product.Id == cart.ProductId)
+        {
+            <div class="panel panel-default">
+                <div class="panel-heading">@product.Title</div>
+                <div class="panel-body">
+                    <div style="width:70%;float: left">
+                        Descriere: @product.Description
+                        <br />
+                        Pret: @product.Price <i class="glyphicon glyphicon-euro"></i>
+                        <br />
+                        <i class="glyphicon glyphicon-globe"></i> Categorie: @product.Category.CategoryName
+                        <br />
+                        <i class="glyphicon glyphicon-user"></i> <i>produs adaugat de</i> <strong> @product.User.UserName </strong>
 
+                    </div>
+                    <div style="width:30%;float:right">
+                        <p>
+                            @{
+                                var base64 = Convert.ToBase64String(product.Picture);
+                                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                            }
+                            <img src="@imgSrc" style="
+                max-height:200px;
+                max-width:200px;
+                height:auto;
+                width:auto;" />
+                        </p>
+
+                    </div>
+                    
+                    <i class="glyphicon glyphicon-tag"></i> Cantitate: @cart.Quantity
+                </div>
+                <div class="panel-footer">
+                    <form method="post" action="/Cart/Delete/@cart.ProductId">
+                        @Html.HttpMethodOverride(HttpVerbs.Delete)
+                        <button class="btn btn-danger pull-right" type="submit">Sterge produs</button>
+                    </form>
+                    <a class="btn btn-success pull-left" href="/Cart/Cantitate/@cart.ProductId">Modifica</a>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+
+
+        }
+
+
+    }
 }
 
-
-<a class="btn btn-primary" href="/Products/Index">Adauga categorie</a>
+<a class="btn btn-primary" href="/Products/Index">Inapoi la produse</a>
 

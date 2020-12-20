@@ -15,6 +15,8 @@ namespace OnlineShop.Models
         [Key]
         [Column(Order = 1)]
         public int ProductId { get; set; }
+
+        [Range(1, 10, ErrorMessage = "Cantitatea este intre 1 si 10")]
         public int Quantity { get; set; }
     }
 }

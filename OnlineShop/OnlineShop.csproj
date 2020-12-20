@@ -262,6 +262,7 @@
     <Content Include="Views\Products\Activat.cshtml" />
     <Content Include="Views\Products\AddRequest.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Cart\Cantitate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
