@@ -1,0 +1,19 @@
+﻿@model OnlineShop.Models.Cart
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+@foreach (OnlineShop.Models.Cart cart in ViewBag.carts)
+{
+    <p>@cart.ProductId</p>
+    <p>@cart.Quantity</p>
+
+}
+
+
+<a class="btn btn-primary" href="/Products/Index">Adauga categorie</a>
+

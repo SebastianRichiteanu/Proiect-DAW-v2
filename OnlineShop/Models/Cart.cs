@@ -9,10 +9,12 @@ namespace OnlineShop.Models
 {
     public class Cart
     {
-        [Key][Column(Order = 0)]
+        [Key]
+        [Column(Order = 0)]
         public string UserId { get; set; }
-        [Key][Column(Order = 1)]
+        [Key]
+        [Column(Order = 1)]
         public int ProductId { get; set; }
-        int Quantity;
+        public int Quantity { get; set; }
     }
 }

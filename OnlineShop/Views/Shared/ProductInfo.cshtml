@@ -15,7 +15,7 @@
         <i class="glyphicon glyphicon-globe"></i> Categorie: @Model.Category.CategoryName
         <br />
         <i class="glyphicon glyphicon-user"></i> <i>produs adaugat de</i> <strong> @Model.User.UserName </strong>
-        
+
     </div>
     <div style="width:30%;float:right">
         <p>
@@ -29,6 +29,10 @@
                 height:auto;
                 width:auto;" />
         </p>
-
     </div>
+
+    <form method="post" action="/Carts/New">
+        
+        <button class="btn btn-sm btn-success" type="submit">Adauga categorie</button>
+    </form>
 </div>
