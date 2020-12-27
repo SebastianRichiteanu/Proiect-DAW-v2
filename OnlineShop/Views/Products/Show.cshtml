@@ -31,10 +31,10 @@
                         <form method="post" action="/Reviews/New">
                             <div class="panel-body">
                                 <input type="hidden" name="ProductId" value="@Model.Id" />
-                                @Html.Label("ReviewRating", "Rating (1-5)")
-                                <br />
-                                @Html.Editor("ReviewRating")
-                                <br />
+                                @Html.Label("ReviewRating", "Rating")
+                                
+                                @Html.DropDownList("ReviewRating", ViewBag.ReviewRating as List<SelectListItem>)
+                                <br/>
                                 @Html.Label("ReviewComment", "Comentariu")
                                 <br />
                                 @Html.TextArea("ReviewComment", null, new { @class = "form-control" })
@@ -63,7 +63,17 @@
                             {
                                 <p>Comment: @rev.ReviewComment</p>
                             }
-                            <p>Rating: @rev.ReviewRating</p>
+                            <p>
+                                Rating:
+                                @for (int i = 1; i <= rev.ReviewRating; ++i)
+                                {
+                                    <i class="glyphicon glyphicon-star"></i>
+                                }
+                                @for (int i = 5; i > rev.ReviewRating; --i)
+                                {
+                                    <i class="glyphicon glyphicon-star-empty"></i>
+                                }
+                            </p>
                         </div>
                         @if (rev.UserId == ViewBag.utilizatorCurent || ViewBag.esteAdmin)
                         {

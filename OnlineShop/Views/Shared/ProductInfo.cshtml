@@ -6,17 +6,46 @@
         Pret: @Model.Price <i class="glyphicon glyphicon-euro"></i>
         @if (Model.Rating == -1)
         {
-            <p>Rating: Nu are rating-uri inca!</p>
+                           <p>
+                               Rating:
+                               <i class="glyphicon glyphicon-star-empty"></i>
+                               <i class="glyphicon glyphicon-star-empty"></i>
+                               <i class="glyphicon glyphicon-star-empty"></i>
+                               <i class="glyphicon glyphicon-star-empty"></i>
+                               <i class="glyphicon glyphicon-star-empty"></i>
+                           </p>
         }
         else
         {
-            <p>Rating: @Model.Rating <i class="glyphicon glyphicon-star"></i> </p>
+                           <p>
+                               Rating:
+                               @for (int i = 1; i <= Math.Floor(Model.Rating); ++i)
+                               {
+                                   <i class="glyphicon glyphicon-star"></i>
+                               }
+                               @if (Model.Rating - Math.Floor(Model.Rating) >= 0.5)
+                               {
+                                   <i class="glyphicon glyphicon-star star-color half"></i>
+                               }
+                               else 
+                               {
+                                   if ((Model.Rating - Math.Floor(Model.Rating) > 0))
+                                   {
+                                       <i class="glyphicon glyphicon-star-empty"></i>
+                                   }
+                               }
+                               @for (int i = 5; i > Math.Ceiling(Model.Rating); --i)
+                               {
+                                   <i class="glyphicon glyphicon-star-empty"></i>
+                               }
+                           </p>
         }
-        <i class="glyphicon glyphicon-globe"></i> Categorie: @Model.Category.CategoryName
-        <br />
-        <i class="glyphicon glyphicon-user"></i> <i>produs adaugat de</i> <strong> @Model.User.UserName </strong>
+      <i class="glyphicon glyphicon-globe"></i> Categorie: @Model.Category.CategoryName
+      <br />
+      <i class="glyphicon glyphicon-user"></i> <i>produs adaugat de</i> <strong> @Model.User.UserName </strong>
 
-    </div>
+
+</div>
     <div style="width:30%;float:right">
         <p>
             @{
@@ -32,7 +61,6 @@
     </div>
 
     <form method="post" action="/Cart/New/@Model.Id">
-        
-        <button class="btn btn-sm btn-success" type="submit">Adauga categorie</button>
+        <button class="btn btn-sm btn-success" type="submit">Adauga in cos</button>
     </form>
 </div>

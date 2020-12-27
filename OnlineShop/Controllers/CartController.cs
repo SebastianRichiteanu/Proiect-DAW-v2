@@ -21,6 +21,21 @@ namespace OnlineShop.Controllers
             var prod = db.Products.Include("Category").Include("User");
             ViewBag.Prod = prod;
 
+            float suma = 0;
+
+            foreach (var c in products)
+            {
+                foreach (var p in prod)
+                {
+                    if (p.Id == c.ProductId)
+                    {
+                        suma += p.Price * c.Quantity;
+                    }
+                }
+            }
+
+            ViewBag.total = suma;
+
             return View();
         }
         [Authorize(Roles = "User,Editor,Admin")]
@@ -29,7 +44,6 @@ namespace OnlineShop.Controllers
             Product prod = db.Products.Find(id);
             string usr_id = User.Identity.GetUserId();
             Cart exista = db.Carts.Find(usr_id, prod.Id);
-          //  var exista = db.Carts.Where(c => c.UserId.Equals(usr_id) && c.ProductId.Equals(prod.Id));
             if (exista == null)
             {
                 Cart cart = new Cart();
@@ -87,6 +101,39 @@ namespace OnlineShop.Controllers
             {
                 return View(requestCart);
             }
+        }
+        public ActionResult Finalizare ()
+        {
+            string usr_id = User.Identity.GetUserId();
+            var products = db.Carts.Where(c => c.UserId.Equals(usr_id));
+            ViewBag.carts = products;
+            var prod = db.Products.Include("Category").Include("User");
+            ViewBag.Prod = prod;
+
+            float suma = 0;
+
+            foreach (var c in products)
+            {
+                foreach (var p in prod)
+                {
+                    if (p.Id == c.ProductId)
+                    {
+                        suma += p.Price * c.Quantity;
+                    }
+                }
+            }
+
+            ViewBag.total = suma;
+
+            foreach (var p in products)
+            {
+                db.Carts.Remove(p);
+            }
+
+            db.SaveChanges();
+
+            return View();
+
         }
     }
 }

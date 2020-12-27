@@ -8,6 +8,10 @@
 
 <h2>Cos</h2>
 
+@if (TempData.ContainsKey("message"))
+{
+    <h1>@ViewBag.message</h1>
+}
 
 @foreach (OnlineShop.Models.Cart cart in ViewBag.carts)
 {
@@ -42,7 +46,7 @@
                         </p>
 
                     </div>
-                    
+
                     <i class="glyphicon glyphicon-tag"></i> Cantitate: @cart.Quantity
                 </div>
                 <div class="panel-footer">
@@ -62,5 +66,9 @@
     }
 }
 
+<p>Total: @ViewBag.total</p>
+
+
 <a class="btn btn-primary" href="/Products/Index">Inapoi la produse</a>
 
+<a class="btn btn-primary" href="/Cart/Finalizare">Plaseaza comanda</a>

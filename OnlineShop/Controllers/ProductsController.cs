@@ -14,7 +14,7 @@ namespace OnlineShop.Controllers
     public class ProductsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        private int _perPage = 3;
+        private int _perPage = 4;
 
         [Authorize(Roles = "Admin")]
         public ActionResult AddRequest()
@@ -182,6 +182,17 @@ namespace OnlineShop.Controllers
             }
             ViewBag.esteAdmin = User.IsInRole("Admin");
             ViewBag.utilizatorCurent = User.Identity.GetUserId();
+
+
+            List<SelectListItem> ReviewRating = new List<SelectListItem>();
+
+            ReviewRating.Add(new SelectListItem() { Text = "1", Value = "1"});
+            ReviewRating.Add(new SelectListItem() { Text = "2", Value = "2"});
+            ReviewRating.Add(new SelectListItem() { Text = "3", Value = "3"});
+            ReviewRating.Add(new SelectListItem() { Text = "4", Value = "4"});
+            ReviewRating.Add(new SelectListItem() { Text = "5", Value = "5"});
+
+            ViewBag.ReviewRating = ReviewRating;
 
             return View(product);
         }

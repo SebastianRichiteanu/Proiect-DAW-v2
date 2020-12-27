@@ -22,3 +22,21 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.half {
+    position: relative;
+}
+
+.font {
+    font-size: 6em;
+}
+
+.half:after {
+    content: '';
+    position: absolute;
+    z-index: 1;
+    background: white;
+    width: 50%;
+    height: 100%;
+    left: 47%;
+}
