@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OnlineShop.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,8 +9,14 @@ namespace OnlineShop.Controllers
 {
     public class HomeController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
         public ActionResult Index()
         {
+            
+            var products = (from product in db.Products
+                            select product);
+
+            ViewBag.Products = products.OrderBy(p => p.Title).Skip(1).Take(2);
             return View();
         }
 

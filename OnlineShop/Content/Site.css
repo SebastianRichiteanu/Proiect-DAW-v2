@@ -1,7 +1,9 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-color: #B0DDEE;
 }
+
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
@@ -39,4 +41,19 @@ textarea {
     width: 50%;
     height: 100%;
     left: 47%;
+}
+
+.truncate {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5;
+}
+
+.row-style {
+    margin-top: 50px;
+}
+
+.navbar-visoi {
+    background-color: #4455B1;
 }
