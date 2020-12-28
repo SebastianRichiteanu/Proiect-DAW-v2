@@ -22,13 +22,61 @@
             <h1>@Model.Title</h1>
         </div>
         <div class="price">
-             <span>@Model.Price</span>
+            <span>Pret: @Model.Price <i class="glyphicon glyphicon-euro"></i></span>
         </div>
         <div class="description">
-            <h3>@Model.Description</h3>
-            
+            <span>Descriere: @Model.Description</span>
         </div>
-        <button class="buy--btn">ADD TO CART</button>
+        <div>
+            @if (Model.Rating == -1)
+            {
+                <span>
+                    Rating:
+                    <i class="glyphicon glyphicon-star-empty"></i>
+                    <i class="glyphicon glyphicon-star-empty"></i>
+                    <i class="glyphicon glyphicon-star-empty"></i>
+                    <i class="glyphicon glyphicon-star-empty"></i>
+                    <i class="glyphicon glyphicon-star-empty"></i>
+                </span>
+            }
+            else
+            {
+                <span>
+                    Rating:
+                    @for (int i = 1; i <= Math.Floor(Model.Rating); ++i)
+                    {
+                        <i class="glyphicon glyphicon-star"></i>
+                    }
+                    @if (Model.Rating - Math.Floor(Model.Rating) >= 0.5)
+                    {
+                        <i class="glyphicon glyphicon-star star-color half"></i>
+                    }
+                    else
+                    {
+                        if ((Model.Rating - Math.Floor(Model.Rating) > 0))
+                        {
+                            <i class="glyphicon glyphicon-star-empty"></i>
+                        }
+                    }
+                    @for (int i = 5; i > Math.Ceiling(Model.Rating); --i)
+                    {
+                        <i class="glyphicon glyphicon-star-empty"></i>
+                    }
+                </span>
+            }
+        </div>
+
+        <div>
+            <i class="glyphicon glyphicon-globe"></i> Categorie: @Model.Category.CategoryName
+        </div>
+
+        <div>
+            <i class="glyphicon glyphicon-user"></i> <i>produs adaugat de</i> <strong> @Model.User.UserName </strong>
+        </div>
+        <br/>
+        <form method="post" action="/Cart/New/@Model.Id">
+            <button class="buy--btn" type="submit">Adauga in cos</button>
+        </form>
     </div>
 </section>
 
