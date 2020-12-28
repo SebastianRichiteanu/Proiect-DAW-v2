@@ -28,11 +28,11 @@
                                placeholder="Search topics or keywords">
                     </div>
                     <div class="col" style="width:30%;float:right">
-                        @Html.DropDownList("Sortare",ViewBag.sort as List<SelectListItem>)
+                        @Html.DropDownList("Sortare", ViewBag.sort as List<SelectListItem>)
                         </select>
                     </div>
                     <div class="col" style="width:30%;float: right">
-                        <button class="btn btn-lg btn-success type="submit"> 
+                        <button class="btn btn-lg btn-success type="submit">
                             Search
                         </button>
                     </div>
@@ -40,6 +40,7 @@
             </form>
         </div>
     </div>
+    
 </div>
 
 
@@ -127,6 +128,7 @@
 {
     if (product.Activat == true)
     {
+     
         <div class="panel panel-default">
             @Html.Partial("ProductInfo", product)
             <div class="panel-footer">

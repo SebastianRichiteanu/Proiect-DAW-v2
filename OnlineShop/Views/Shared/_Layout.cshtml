@@ -1,4 +1,6 @@
 ﻿<!DOCTYPE html>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Hanalei+Fill&family=Ubuntu&display=swap" rel="stylesheet">
 <html>
 <head>
     <meta charset="utf-8" />
@@ -33,10 +35,7 @@
                         <li>@Html.ActionLink("Afisare Useri", "Index", "Users")</li>
                         <li>@Html.ActionLink("Cereri Editori", "AddRequest", "Products")</li>
                     }
-                    @if (User.IsInRole("Editor") || User.IsInRole("User") || User.IsInRole("Admin"))
-                    {
-                        <li>@Html.ActionLink("Cos", "Index", "Cart")</li>
-                    }
+                    
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

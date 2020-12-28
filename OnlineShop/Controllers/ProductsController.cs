@@ -14,7 +14,7 @@ namespace OnlineShop.Controllers
     public class ProductsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        private int _perPage = 4;
+        private int _perPage = 6;
 
         [Authorize(Roles = "Admin")]
         public ActionResult AddRequest()

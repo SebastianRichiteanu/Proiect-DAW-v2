@@ -2,6 +2,7 @@
     padding-top: 50px;
     padding-bottom: 20px;
     background-color: #B0DDEE;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 
@@ -54,6 +55,26 @@ textarea {
     margin-top: 50px;
 }
 
+
+
+
 .navbar-visoi {
     background-color: #4455B1;
+    font-family: 'Ubuntu', sans-serif;
+}
+.navbar-visoi .navbar-brand {
+    font-family: 'Caveat', cursive;
+    font-size: 40px;
+}
+
+.products {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.products-card {
+    padding: 2%;
+    flex-grow: 1;
+    flex-basis: 16%;
+    display: flex; 
 }
