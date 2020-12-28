@@ -35,7 +35,7 @@ namespace OnlineShop.Controllers
 
             var sortOrder = Request.Params.Get("Sortare") ;
             var search = "";
-            var products = from p in db.Products.Include("Category").Include("User").OrderBy(p => p.Title) select p;
+            var products = from p in db.Products.Include("Category").Include("User").Where(p => p.Activat.Equals(true)).OrderBy(p => p.Title) select p;
 
             Debug.Write(sortOrder);
 
@@ -83,8 +83,11 @@ namespace OnlineShop.Controllers
                 offset = (currentPage - 1) * this._perPage;
             }
 
+
+    
             var paginatedProducts = products.Skip(offset).Take(this._perPage);
 
+           
             ViewBag.total = totalItems;
             ViewBag.lastPage = Math.Ceiling((float)totalItems / (float)this._perPage);
             ViewBag.Products = paginatedProducts;

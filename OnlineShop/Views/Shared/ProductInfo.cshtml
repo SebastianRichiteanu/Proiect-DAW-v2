@@ -1,66 +1,34 @@
-﻿<div class="panel-heading">@Model.Title</div>
-<div class="panel-body">
-    <div style="width:70%;float: left">
-        Descriere: @Model.Description
-        <br />
-        Pret: @Model.Price <i class="glyphicon glyphicon-euro"></i>
-        @if (Model.Rating == -1)
-        {
-                           <p>
-                               Rating:
-                               <i class="glyphicon glyphicon-star-empty"></i>
-                               <i class="glyphicon glyphicon-star-empty"></i>
-                               <i class="glyphicon glyphicon-star-empty"></i>
-                               <i class="glyphicon glyphicon-star-empty"></i>
-                               <i class="glyphicon glyphicon-star-empty"></i>
-                           </p>
-        }
-        else
-        {
-                           <p>
-                               Rating:
-                               @for (int i = 1; i <= Math.Floor(Model.Rating); ++i)
-                               {
-                                   <i class="glyphicon glyphicon-star"></i>
-                               }
-                               @if (Model.Rating - Math.Floor(Model.Rating) >= 0.5)
-                               {
-                                   <i class="glyphicon glyphicon-star star-color half"></i>
-                               }
-                               else 
-                               {
-                                   if ((Model.Rating - Math.Floor(Model.Rating) > 0))
-                                   {
-                                       <i class="glyphicon glyphicon-star-empty"></i>
-                                   }
-                               }
-                               @for (int i = 5; i > Math.Ceiling(Model.Rating); --i)
-                               {
-                                   <i class="glyphicon glyphicon-star-empty"></i>
-                               }
-                           </p>
-        }
-      <i class="glyphicon glyphicon-globe"></i> Categorie: @Model.Category.CategoryName
-      <br />
-      <i class="glyphicon glyphicon-user"></i> <i>produs adaugat de</i> <strong> @Model.User.UserName </strong>
+﻿<section class="product">
+    <div class="product__photo">
+        <div class="photo-container">
+            <div class="photo-main">
+                <div class="controls">
 
-
-</div>
-    <div style="width:30%;float:right;">
-        <p>
-            @{
-                var base64 = Convert.ToBase64String(Model.Picture);
-                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-            }
-            <img src="@imgSrc" style="
+                </div>
+                @{
+                    var base64 = Convert.ToBase64String(Model.Picture);
+                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                }
+                <img src="@imgSrc" style="
                 max-height:200px;
                 max-width:200px;
-                height:auto;
-                width:auto;" />
-        </p>
+                "/>
+            </div>
+            
+        </div>
     </div>
+    <div class="product__info">
+        <div class="title">
+            <h1>@Model.Title</h1>
+        </div>
+        <div class="price">
+             <span>@Model.Price</span>
+        </div>
+        <div class="description">
+            <h3>@Model.Description</h3>
+            
+        </div>
+        <button class="buy--btn">ADD TO CART</button>
+    </div>
+</section>
 
-    <form method="post" action="/Cart/New/@Model.Id">
-        <button class="btn btn-sm btn-success" type="submit">Adauga in cos</button>
-    </form>
-</div>

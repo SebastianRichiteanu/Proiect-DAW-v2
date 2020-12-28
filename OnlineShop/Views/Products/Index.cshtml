@@ -48,11 +48,10 @@
     <nav aria-label="Page navigation">
         <ul class="pagination">
             <li>
-                @if (ViewBag.search != "")
+                @if (ViewBag.SearchString != null)
                 {
-                    if (ViewBag.Sortare != "")
-                    {
-                        <a href="/Products/Index?page=1&search=@ViewBag.SearchString&Sortare=@ViewBag.Sortare"
+                    if (ViewBag.Sortare != null)
+                    {    <a href="/Products/Index?page=1&search=@ViewBag.SearchString&Sortare=@ViewBag.Sortare"
                            aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
@@ -75,9 +74,9 @@
             </li>
             @for (int i = 1; i <= ViewBag.lastPage; i++)
             {
-                if (ViewBag.search != "")
+                if (ViewBag.SearchString != null)
                 {
-                    if (ViewBag.Sortare != "")
+                    if (ViewBag.Sortare != null)
                     {
                         <li>
                             <a href="/Products/Index?page=@i&search=@ViewBag.SearchString&Sortare=@ViewBag.Sortare">@(i)</a>
@@ -96,9 +95,9 @@
                 }
             }
                     <li>
-                        @if (ViewBag.search != "")
+                        @if (ViewBag.SearchString != null)
                         {
-                            if (ViewBag.Sortare != "")
+                            if (ViewBag.Sortare != null)
                             {
                                 <a href="/Products/Index?page=@(ViewBag.lastPage)&search=@ViewBag.SearchString&Sortare=@ViewBag.Sortare" arialabel="Next">
                                     <span aria-hidden="true">&raquo;</span>
@@ -123,21 +122,21 @@
 </div>
 
 
-
-@foreach (OnlineShop.Models.Product product in ViewBag.Products)
-{
-    if (product.Activat == true)
+<section class="products">
+    @foreach (OnlineShop.Models.Product product in ViewBag.Products)
     {
-     
-        <div class="panel panel-default">
-            @Html.Partial("ProductInfo", product)
-            <div class="panel-footer">
-                <a class="btn btn-success" href="/Products/Show/@product.Id"> Afisare produs </a>
+        if (product.Activat == true)
+        {
+
+            <div class="panel panel-default products-card">
+                @Html.Partial("ProductInfo", product)
+                <div >
+                    <a class="btn btn-success" href="/Products/Show/@product.Id"> Afisare produs </a>
+                </div>
             </div>
-        </div>
+        }
+
+
     }
-
-
-}
-
+</section>
 
