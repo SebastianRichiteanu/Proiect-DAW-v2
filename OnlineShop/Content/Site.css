@@ -293,5 +293,40 @@ li {
     }
 }
 
+.w3-animate-top {
+    position: relative;
+    animation: animatetop 0.4s
+}
 
+@keyframes animatetop {
+    from {
+        top: -300px;
+        opacity: 0
+    }
 
+    to {
+        top: 0;
+        opacity: 1
+    }
+}
+
+.pricing-header {
+    color: #888;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.pricing-features {
+    color: #3366ff;
+    font-family: 'Fredoka One', cursive;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin: 50px 0 25px;
+}
+
+.pricing-features-item {
+   
+    font-size: 20px;
+    line-height: 1.5;
+    padding: 15px 0;
+}

@@ -1,4 +1,15 @@
-﻿<section class="product">
+﻿<!--<div class="pricing-plan">
+    <img src="https://s22.postimg.cc/8mv5gn7w1/paper-plane.png" alt="" class="pricing-img">
+    <h2 class="pricing-header">Personal</h2>
+    <ul class="pricing-features">
+        <li class="pricing-features-item">Custom domains</li>
+        <li class="pricing-features-item">Sleeps after 30 mins of inactivity</li>
+    </ul>
+    <span class="pricing-price">Free</span>
+    <a href="#/" class="pricing-button">Sign up</a>
+</div>-->
+
+<section class="product">
     <div class="product__photo">
         <div class="photo-container">
             <div class="photo-main">
@@ -18,31 +29,33 @@
         </div>
     </div>
     <div class="product__info">
-        <div class="title">
+        <div class="pricing-header">
             <h1>@Model.Title</h1>
         </div>
-        <div class="price">
-            <span>Pret: @Model.Price <i class="glyphicon glyphicon-euro"></i></span>
-        </div>
-        <div class="description">
-            <span>Descriere: @Model.Description</span>
-        </div>
-        <div>
+     
+        <ul class="pricing-features">
+            <li class="pricing-features-item">@Model.Price <i class="glyphicon glyphicon-euro"></i></li>
+            
+            <li class="pricing-features-item">Descriere: @Model.Description</li>
+            <li class="pricing-features-item"><i class="glyphicon glyphicon-globe"></i> Categorie: @Model.Category.CategoryName</li>
+        
+       
+        
             @if (Model.Rating == -1)
             {
-                <span>
-                    Rating:
+                <li class="pricing-features-item">
+                    
                     <i class="glyphicon glyphicon-star-empty"></i>
                     <i class="glyphicon glyphicon-star-empty"></i>
                     <i class="glyphicon glyphicon-star-empty"></i>
                     <i class="glyphicon glyphicon-star-empty"></i>
                     <i class="glyphicon glyphicon-star-empty"></i>
-                </span>
+                </li>
             }
             else
             {
-                <span>
-                    Rating:
+                <li class="pricing-features-item">
+                    
                     @for (int i = 1; i <= Math.Floor(Model.Rating); ++i)
                     {
                         <i class="glyphicon glyphicon-star"></i>
@@ -62,13 +75,11 @@
                     {
                         <i class="glyphicon glyphicon-star-empty"></i>
                     }
-                </span>
+                </li>
             }
-        </div>
+        </ul>
 
-        <div>
-            <i class="glyphicon glyphicon-globe"></i> Categorie: @Model.Category.CategoryName
-        </div>
+        
 
         <div>
             <i class="glyphicon glyphicon-user"></i> <i>produs adaugat de</i> <strong> @Model.User.UserName </strong>
