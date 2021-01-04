@@ -1,8 +1,10 @@
 ﻿@{
-    ViewBag.Title = "Afisare utilizatori"; }
-<ol class="breadcrumb">
-    <li><h3>@ViewBag.Title</h3></li>
-</ol>
+    ViewBag.Title = "Afisare utilizatori"; 
+}
+
+<h1>@ViewBag.Title</h1>
+
+
 @foreach (var user in ViewBag.UsersList)
 {
     <div class="panel-heading">Nume utilizator: @user.UserName</div>

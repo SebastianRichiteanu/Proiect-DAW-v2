@@ -293,7 +293,7 @@ li {
     }
 }
 
-.w3-animate-top {
+.shop-animate-top {
     position: relative;
     animation: animatetop 0.4s
 }
@@ -317,16 +317,75 @@ li {
 }
 
 .pricing-features {
-    color: #3366ff;
     font-family: 'Fredoka One', cursive;
-    font-weight: 600;
-    letter-spacing: 1px;
-    margin: 50px 0 25px;
+    margin: 20px 0 10px;
 }
 
 .pricing-features-item {
    
     font-size: 20px;
     line-height: 1.5;
-    padding: 15px 0;
+    padding: 5px 0;
+}
+.bgimg {
+    background-image: url('img.jpg');
+    min-height: 100%;
+    background-position: center;
+    background-size: cover;
+}
+
+.shop-display-container {
+    position: relative;
+}
+
+.shop-animate-opacity {
+    animation: opac 0.8s;
+}
+
+.shop-display-topleft {
+    position: absolute;
+    left: 0;
+    top: 0
+}
+
+.shop-padding-large {
+    padding: 12px 24px !important;
+}
+
+.shop-xlarge {
+    font-size: 24px !important;
+}
+
+.shop-display-middle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+}
+
+.shop-jumbo {
+    font-size: 100px !important;
+}
+
+.shop-border-grey {
+    border-color: #9e9e9e !important;
+}
+
+.shop-large {
+    font-size: 20px !important;
+}
+
+.shop-center {
+    text-align: center !important;
+}
+
+.shop-display-bottomleft {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+.shop-padding-large {
+    padding: 12px 24px !important;
 }

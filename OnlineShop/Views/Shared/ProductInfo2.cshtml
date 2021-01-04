@@ -1,0 +1,74 @@
+﻿<div class="panel-heading">
+    <div class="pull-left" style="font-size:35px;">@Model.Title</div>
+    <form method="post" action="/Cart/New/@Model.Id">
+        <button class="buy--btn pull-right" type="submit">Adauga in cos</button>
+    </form>
+    <div class="clearfix"></div>
+</div>
+    <div class="panel-body">
+        <div style="float:left;width:70%;">
+            <ul class="pricing-features">
+                <li class="pricing-features-item">@Model.Price <i class="glyphicon glyphicon-euro"></i></li>
+
+                <li class="pricing-features-item">Descriere: @Model.Description</li>
+                <li class="pricing-features-item"><i class="glyphicon glyphicon-globe"></i> Categorie: @Model.Category.CategoryName</li>
+
+
+
+                @if (Model.Rating == -1)
+                {
+                    <li class="pricing-features-item">
+
+                        <i class="glyphicon glyphicon-star-empty"></i>
+                        <i class="glyphicon glyphicon-star-empty"></i>
+                        <i class="glyphicon glyphicon-star-empty"></i>
+                        <i class="glyphicon glyphicon-star-empty"></i>
+                        <i class="glyphicon glyphicon-star-empty"></i>
+                    </li>
+                }
+                else
+                {
+                    <li class="pricing-features-item">
+
+                        @for (int i = 1; i <= Math.Floor(Model.Rating); ++i)
+                        {
+                            <i class="glyphicon glyphicon-star"></i>
+                        }
+                        @if (Model.Rating - Math.Floor(Model.Rating) >= 0.5)
+                        {
+                            <i class="glyphicon glyphicon-star star-color half"></i>
+                        }
+                        else
+                        {
+                            if ((Model.Rating - Math.Floor(Model.Rating) > 0))
+                            {
+                                <i class="glyphicon glyphicon-star-empty"></i>
+                            }
+                        }
+                        @for (int i = 5; i > Math.Ceiling(Model.Rating); --i)
+                        {
+                            <i class="glyphicon glyphicon-star-empty"></i>
+                        }
+                    </li>
+                }
+            </ul>
+            <div>
+                <i class="glyphicon glyphicon-user"></i> <i>produs adaugat de</i> <strong> @Model.User.UserName </strong>
+            </div>
+            <br />
+        </div>
+        <div style="float:right;width:30%;">
+
+            @{
+                var base64 = Convert.ToBase64String(Model.Picture);
+                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+            }
+            <img src="@imgSrc" style="
+                max-height:200px;
+                max-width:200px;
+                " />
+
+        </div>
+    </div>
+
+    

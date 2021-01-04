@@ -1,7 +1,11 @@
 ﻿@model OnlineShop.Models.ApplicationUser
 
 @{
-    ViewBag.Title = "Editare utilizator"; }
+    ViewBag.Title = "Editare utilizator"; 
+}
+
+<h1>Editare user: @Model.UserName</h1>
+
 
 @using (Html.BeginForm(actionName: "Edit", controllerName: "Users", routeValues: new { id = @Model.Id }))
 {@Html.HttpMethodOverride(HttpVerbs.Put)

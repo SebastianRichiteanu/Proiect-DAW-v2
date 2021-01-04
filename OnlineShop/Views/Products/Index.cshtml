@@ -28,6 +28,7 @@
                                placeholder="Search topics or keywords">
                     </div>
                     <div class="col" style="width:30%;float:right">
+                        <p style="font-size:18px;">Sortare:</p>
                         @Html.DropDownList("Sortare", ViewBag.sort as List<SelectListItem>)
                         </select>
                     </div>
@@ -131,7 +132,7 @@
             <div class="panel panel-default products-card">
                 @Html.Partial("ProductInfo", product)
                 <div >
-                    <a class="btn btn-success" href="/Products/Show/@product.Id"> Afisare produs </a>
+                    <a class="btn btn-success" href="/Products/Show/@product.Id"> Detalii Produs </a>
                 </div>
             </div>
         }
