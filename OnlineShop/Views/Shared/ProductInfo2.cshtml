@@ -1,8 +1,11 @@
 ﻿<div class="panel-heading">
     <div class="pull-left" style="font-size:35px;">@Model.Title</div>
+    @if (Model.Activat == true)
+    {
     <form method="post" action="/Cart/New/@Model.Id">
         <button class="buy--btn pull-right" type="submit">Adauga in cos</button>
     </form>
+    }
     <div class="clearfix"></div>
 </div>
     <div class="panel-body">

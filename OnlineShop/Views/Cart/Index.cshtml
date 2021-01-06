@@ -52,9 +52,9 @@
                 <div class="panel-footer">
                     <form method="post" action="/Cart/Delete/@cart.ProductId">
                         @Html.HttpMethodOverride(HttpVerbs.Delete)
-                        <button class="btn btn-danger pull-right" type="submit">Sterge produs</button>
+                        <button class="btn btn-danger pull-right" type="submit">Sterge din cos</button>
                     </form>
-                    <a class="btn btn-success pull-left" href="/Cart/Cantitate/@cart.ProductId">Modifica</a>
+                    <a class="btn btn-success pull-left" href="/Cart/Cantitate/@cart.ProductId">Modificare cantitate</a>
                     <div class="clearfix"></div>
                 </div>
             </div>
@@ -66,9 +66,11 @@
     }
 }
 
-<p>Total: @ViewBag.total</p>
+<p>Total: @ViewBag.total <i class="glyphicon glyphicon-euro"></i></p>
 
 
 <a class="btn btn-primary" href="/Products/Index">Inapoi la produse</a>
-
+@if (ViewBag.total != 0)
+{
 <a class="btn btn-primary" href="/Cart/Finalizare">Plaseaza comanda</a>
+}
